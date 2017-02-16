@@ -1,4 +1,5 @@
 from django.shortcuts import render, get_object_or_404
+from django.shortcuts import redirect
 from django.utils import timezone
 from .forms import GistForm
 from .models import Gist
@@ -17,4 +18,14 @@ def gist_detail(request, pk):
 
 def gist_new(request):
     form = GistForm
+    if request.method == 'POST':
+        form = GistForm(request.POST)
+        if form.is_valid():
+            gist = form.save(commit=False)
+            gist.user = request.user
+            gist.date = timezone.now()
+            gist.save()
+            return redirect('gist_detail', pk=gist.pk)
+    else:
+        form = GistForm()
     return render(request, 'myreads/post_new.html', context={'form': form})

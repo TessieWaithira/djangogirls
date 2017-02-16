@@ -1,0 +1,13 @@
+{% extends 'myreads/base.html' %}
+
+{% block content %}
+    <div>
+        {% if gist.date %}
+            <div>
+                {{ gist.date }}
+            </div>
+        {% endif %}
+        <h1>{{ gist.title }}</h1>
+        <p>{{ gist.text|linebreaksbr }}</p>
+    </div>
+{% endblock %}

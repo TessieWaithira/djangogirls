@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from django.utils import timezone
+from .forms import GistForm
 from .models import Gist
 
 
@@ -12,3 +13,8 @@ def publish_read(request):
 def gist_detail(request, pk):
     gist = get_object_or_404(Gist, pk=pk)
     return render(request, 'myreads/gist_detail.html', {'gist': gist})
+
+
+def gist_new(request):
+    form = GistForm
+    return render(request, 'myreads/post_new.html', context={'form': form})

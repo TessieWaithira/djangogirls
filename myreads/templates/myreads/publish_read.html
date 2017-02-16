@@ -1,0 +1,19 @@
+<html>
+    <head>
+        <title>Django Girls blog</title>
+    </head>
+    <body>
+        <div>
+            <h1><a href="/">Django Girls Blog</a></h1>
+        </div>
+
+        {% for gist in gists %}
+        <div>
+        <p>{{ gist.date }}</p>
+        <h1><a href="">{{ gist.title }}</a></h1>
+        <p>{{ gist.text|linebreaksbr }}</p>
+        </div>
+        {% endfor %}
+
+    </body>
+</html>

@@ -14,7 +14,7 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.AlterField(
-            model_name='gist',
+            model_name='myreads',
             name='date',
             field=models.DateTimeField(default=django.utils.timezone.now),
         ),

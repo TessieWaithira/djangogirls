@@ -16,4 +16,17 @@
         <h1>{{ gist.title }}</h1>
         <p>{{ gist.text|linebreaksbr }}</p>
     </div>
-{% endblock %}
+    <hr>
+    {% for comment in gist.comments.all %}
+    <div class="comment">
+        <div>
+            {{ comment.created_date }}
+        </div>
+        <strong>{{ comment.user }}</strong>
+        <p>{{ comment.text|linebreaks }}</p>
+    </div>
+    {% empty %}
+        <p>No comments on this gist :</p>
+    {% endfor %}
+    {% endblock %}
+

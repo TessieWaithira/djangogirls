@@ -6,6 +6,7 @@
         <p>{{ gist.published_date }}</p>
         <h1><a href="{% url 'gist_detail' pk=gist.pk %}">{{ gist.title }}</a></h1>
         <p>{{ gist.text|linebreaksbr }}</p>
+        <a href="{% url 'gist_detail' pk=gist.pk %}">Comments: {{ gist.comments.count }}</a>
         </div>
         {% endfor %}
 {% endblock %}

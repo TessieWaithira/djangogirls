@@ -28,4 +28,19 @@ def gist_new(request):
             return redirect('gist_detail', pk=gist.pk)
     else:
         form = GistForm()
-    return render(request, 'myreads/post_new.html', context={'form': form})
+    return render(request, 'myreads/gist_edit.html', context={'form': form})
+
+
+def gist_edit(request, pk):
+    gist = get_object_or_404(Gist, pk=pk)
+    if request.method == "POST":
+        form = GistForm(request.POST, instance=gist)
+        if form.is_valid():
+            gist = form.save(commit=False)
+            gist.user = request.user
+            gist.date = timezone.now()
+            gist.save()
+            return redirect('gist_detail', pk=gist.pk)
+    else:
+        form = GistForm(instance=gist)
+    return render(request, 'myreads/gist_edit.html', context={'form': form})

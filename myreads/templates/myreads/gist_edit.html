@@ -1,7 +1,8 @@
-{% extends 'myreads/base.html'%}
+{% extends 'myreads/base.html' %}
+
 {% block content %}
-<h1>New gist</h1>
-    <form method="POST" class="post-form">
+    <h1>New gist</h1>
+    <form method="POST" class="gist-form">
         {% csrf_token %}
         {{ form.as_p }}
         <button type="submit" class="save btn btn-default">Save</button>

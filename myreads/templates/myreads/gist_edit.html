@@ -1,7 +1,7 @@
 {% extends 'myreads/base.html' %}
 
 {% block content %}
-    <h1>New gist</h1>
+    <h1>Edit gist</h1>
     <form method="POST" class="gist-form">
         {% csrf_token %}
         {{ form.as_p }}

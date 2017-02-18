@@ -2,10 +2,12 @@
 
 {% block content %}
     <div>
-        {% if gist.date %}
+        {% if gist.published_date %}
             <div>
-                {{ gist.date }}
+                {{ gist.published_date }}
             </div>
+        {% else %}
+        <a class="btn btn-default" href="{% url 'gist_publish' pk=gist.pk %}">Publish</a>
         {% endif %}
         {% if user.is_authenticated %}
         <a class="btn btn-default" href="{% url 'gist_edit' pk=gist.pk %}"><span class="glyphicon glyphicon-pencil"></span></a>

@@ -1,0 +1,12 @@
+{% extends 'myreads/base.html' %}
+{% block content %}
+    {% for gist in gists %}
+        <div>
+            <p class="date">
+                {{gist.created_date}}
+            </p>
+            <h1><a href="{% url 'gist_detail' pk=gist.pk %}">{{ post.title }}</a> </h1>
+            <p>{{ gist.text|truncatechars:200 }}</p>
+        </div>
+    {% endfor %}
+{% endblock %}

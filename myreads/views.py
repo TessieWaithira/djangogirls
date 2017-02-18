@@ -23,7 +23,6 @@ def gist_new(request):
         if form.is_valid():
             gist = form.save(commit=False)
             gist.user = request.user
-            gist.date = timezone.now()
             gist.save()
             return redirect('gist_detail', pk=gist.pk)
     else:
@@ -38,9 +37,13 @@ def gist_edit(request, pk):
         if form.is_valid():
             gist = form.save(commit=False)
             gist.user = request.user
-            gist.date = timezone.now()
             gist.save()
             return redirect('gist_detail', pk=gist.pk)
     else:
         form = GistForm(instance=gist)
     return render(request, 'myreads/gist_edit.html', context={'form': form})
+
+
+def gist_draft_list(request):
+    gists = Gist.objects.filter(published_date__isnull=True).order_by('created_date')
+    return render(request, 'myreads/gist_draft_list.html', {'gists': gists})

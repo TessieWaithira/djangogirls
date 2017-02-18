@@ -2,7 +2,8 @@
 {% block content %}
         {% for gist in gists %}
         <div>
-        <p>{{ gist.date }}</p>
+                        <p>{{ gist.created_date }}</p>
+        <p>{{ gist.published_date }}</p>
         <h1><a href="{% url 'gist_detail' pk=gist.pk %}">{{ gist.title }}</a></h1>
         <p>{{ gist.text|linebreaksbr }}</p>
         </div>

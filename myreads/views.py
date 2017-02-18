@@ -2,8 +2,8 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404
 from django.shortcuts import redirect
 from django.utils import timezone
-from .forms import GistForm
-from .models import Gist
+from .forms import GistForm, CommentForm
+from .models import Gist, Comment
 
 
 # Create your views here.
@@ -65,3 +65,35 @@ def gist_delete(request, pk):
     gist = get_object_or_404(Gist, pk=pk)
     gist.delete()
     return redirect('publish_read')
+
+
+def add_comment_to_gist(request, pk):
+    gist = get_object_or_404(Gist, pk=pk)
+    if request.method == "POST":
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.gist = gist
+            comment.save()
+            return redirect('gist_detail', pk=gist.pk)
+    else:
+        form = CommentForm()
+    return render(request, 'myreads/add_comment_to_gist.html', {'form': form})
+
+
+@login_required
+def comment_approve(request, pk):
+    comment = get_object_or_404(Comment, pk=pk)
+    gist_pk = comment.gist.pk
+    comment.approve()
+    return redirect('gist_detail', pk=gist_pk)
+
+
+@login_required
+def comment_remove(request, pk):
+    comment = get_object_or_404(Comment, pk=pk)
+    gist_pk = comment.gist.pk
+    comment.delete()
+    return redirect('gist_detail', pk=gist_pk)
+
+

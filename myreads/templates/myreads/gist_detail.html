@@ -7,7 +7,9 @@
                 {{ gist.date }}
             </div>
         {% endif %}
+        {% if user.is_authenticated %}
         <a class="btn btn-default" href="{% url 'gist_edit' pk=gist.pk %}"><span class="glyphicon glyphicon-pencil"></span></a>
+        {% endif %}
         <h1>{{ gist.title }}</h1>
         <p>{{ gist.text|linebreaksbr }}</p>
     </div>

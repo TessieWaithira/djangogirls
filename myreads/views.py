@@ -47,3 +47,9 @@ def gist_edit(request, pk):
 def gist_draft_list(request):
     gists = Gist.objects.filter(published_date__isnull=True).order_by('created_date')
     return render(request, 'myreads/gist_draft_list.html', {'gists': gists})
+
+
+def gist_publish(request, pk):
+    gist = get_object_or_404(Gist, pk=pk)
+    gist.publish()
+    return redirect('gist_detail', pk=gist.pk)

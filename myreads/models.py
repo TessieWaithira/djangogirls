@@ -26,3 +26,18 @@ class Gist(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class Comment(models.Model):
+    gist = models.ForeignKey('myreads.Gist', related_name='comments')
+    user = models.CharField(max_length=100)
+    text = models.TextField()
+    created_date = models.DateTimeField(default=timezone.now())
+    approved_comment = models.BooleanField(default=False)
+
+    def approve(self):
+        self.approve_comment = True
+        self.save()
+
+    def __str__(self):
+        return self.text

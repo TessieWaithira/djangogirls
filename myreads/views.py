@@ -27,7 +27,7 @@ def gist_new(request):
             return redirect('gist_detail', pk=gist.pk)
     else:
         form = GistForm()
-    return render(request, 'myreads/gist_edit.html', context={'form': form})
+    return render(request, 'myreads/gist_new.html', context={'form': form})
 
 
 def gist_edit(request, pk):
@@ -53,3 +53,9 @@ def gist_publish(request, pk):
     gist = get_object_or_404(Gist, pk=pk)
     gist.publish()
     return redirect('gist_detail', pk=gist.pk)
+
+
+def gist_delete(request, pk):
+    gist = get_object_or_404(Gist, pk=pk)
+    gist.delete()
+    return redirect('publish_read')
